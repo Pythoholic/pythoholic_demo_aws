@@ -1,0 +1,40 @@
+# Install Nginx using Ansible
+# Start and Enable Nginx
+# Check the status of Nginx
+- name: Setup Nginx server on myserver list
+  hosts: myservers
+  become: True
+  vars:
+    nginx_version: 1.12
+    base_path: /home/ec2-user/
+  tasks:
+    - name: Install the latest version of nginx
+      command: amazon-linux-extras install nginx{{ nginx_version }}=latest -y
+      args:
+        creates: /sbin/nginx
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: Enable nginx
+      service:
+        name: nginx
+        enabled: yes
+
+    - name: Ensure nginx is at the latest version
+      command: nginx -v
+      register: nginx_version
+
+    - name: Print the version of nginx
+      debug:
+        msg: "The current version of nginx is {{ nginx_version.stderr_lines[0] }}"
+
+    - name: Get status of nginx installed
+      command: systemctl status nginx
+
+    - name: Ansible copy file to remote server
+      copy:
+        src: "{{ base_path }}sample.txt"
+        dest: "{{ base_path }}"
