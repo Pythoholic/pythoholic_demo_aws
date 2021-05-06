@@ -1,0 +1,12 @@
+- name: Convert string to base 64 using python
+  hosts: localhost
+  tasks:
+  - name: Convert the string to base64
+    base64mod:
+      name: 'hello'
+      type: 'encode'
+      new: true
+    register: testout
+  - name: dump test output
+    debug:
+      msg: '{{ testout }}'
