@@ -14,7 +14,9 @@
         enabled: no
 
     - name: Uninstall nginx
-      command: yum remove nginx -y
+      apt:
+        name: nginx
+        state: absent
 
     - name: Check if nginx is uninstalled
       command: nginx -v
