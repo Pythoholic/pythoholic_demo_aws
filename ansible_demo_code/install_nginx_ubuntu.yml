@@ -1,3 +1,6 @@
+# Install Nginx Service on Ubuntu
+# Start the Service and Enable it
+# Check the status of Nginx
 - name: Setup Nginx server on myserver list
   hosts: myservers
   become: True

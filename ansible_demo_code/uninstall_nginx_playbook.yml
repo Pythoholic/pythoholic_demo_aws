@@ -1,4 +1,6 @@
----
+# Uninstall Nginx Service on Ubuntu
+# Stop the Service and Purge it
+# Check the status of Nginx
 - name: Uninstall Nginx from the servers
   hosts: myservers
   become: yes
