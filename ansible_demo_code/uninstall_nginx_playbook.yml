@@ -1,0 +1,26 @@
+---
+- name: Uninstall Nginx from the servers
+  hosts: myservers
+  become: yes
+  tasks:
+    - name: Stop nginx service
+      service:
+        name: nginx
+        state: stopped
+
+    - name: Disable nginx service
+      service:
+        name: nginx
+        enabled: no
+
+    - name: Uninstall nginx
+      command: yum remove nginx -y
+
+    - name: Check if nginx is uninstalled
+      command: nginx -v
+      ignore_errors: true
+      register: nginx_check
+
+    - name: Print nginx check result
+      debug:
+        var: nginx_check.stderr
