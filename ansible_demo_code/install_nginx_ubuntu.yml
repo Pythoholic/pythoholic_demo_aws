@@ -6,26 +6,26 @@
   become: True
   tasks:
     - name: Update apt cache
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
 
     - name: Install the latest version of nginx
-      apt:
+      ansible.builtin.apt:
         name: nginx
         state: latest
 
     - name: Start nginx
-      service:
+      ansible.builtin.service:
         name: nginx
         state: started
 
     - name: Enable nginx
-      service:
+      ansible.builtin.service:
         name: nginx
         enabled: yes
 
     - name: Ensure nginx is at the latest version
-      command: nginx -v
+      ansible.builtin.command: nginx -v
 
     - name: Get status of nginx installed
-      command: systemctl status nginx
+      ansible.builtin.command: systemctl status nginx
